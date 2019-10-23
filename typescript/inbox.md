@@ -5,4 +5,4 @@
 - [x] 98th verse
 - [x] 2nd verse
 - [x] 1st verse
-- [ ] 0th verse
+- [x] 0th verse
