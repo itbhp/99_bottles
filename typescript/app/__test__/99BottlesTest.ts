@@ -16,19 +16,18 @@ function remaining_bottles_from(bottles_number: number) {
     return remaining_bottles;
 }
 
-function second_period_from(bottles_number: number) {
-    let remaining_bottles = remaining_bottles_from(bottles_number);
-    let second_period;
+function actionFor(bottles_number: number) {
+    let action: string;
     if (bottles_number === 0) {
-        second_period = `Go to the store and buy some more, ${remaining_bottles} of beer on the wall.`;
-    } else if (bottles_number === 1) {
-        second_period = `Take one down and pass it around, ${remaining_bottles} of beer on the wall.`;
-    } else if (bottles_number === 2) {
-        second_period = `Take one down and pass it around, ${remaining_bottles} of beer on the wall.`;
+        action = `Go to the store and buy some more`;
     } else {
-        second_period = `Take one down and pass it around, ${remaining_bottles} of beer on the wall.`;
+        action = `Take one down and pass it around`;
     }
-    return second_period;
+    return action;
+}
+
+function second_period_from(bottles_number: number) {
+    return `${(actionFor(bottles_number))}, ${(remaining_bottles_from(bottles_number))} of beer on the wall.`;
 }
 
 function currentBottlesOfBeerFrom(bottles_number: number) {
