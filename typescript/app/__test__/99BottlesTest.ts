@@ -2,34 +2,6 @@ function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-function remaining_bottles_from(bottles_number: number) {
-    let remaining_bottles;
-    if (bottles_number === 0) {
-        remaining_bottles = `99 bottles`;
-    } else if (bottles_number === 1) {
-        remaining_bottles = `no more bottles`;
-    } else if (bottles_number === 2) {
-        remaining_bottles = `1 bottle`;
-    } else {
-        remaining_bottles = `${bottles_number - 1} bottles`;
-    }
-    return remaining_bottles;
-}
-
-function actionFor(bottles_number: number) {
-    let action: string;
-    if (bottles_number === 0) {
-        action = `Go to the store and buy some more`;
-    } else {
-        action = `Take one down and pass it around`;
-    }
-    return action;
-}
-
-function second_period_from(bottles_number: number) {
-    return `${(actionFor(bottles_number))}, ${(remaining_bottles_from(bottles_number))} of beer on the wall.`;
-}
-
 function currentBottlesOfBeerFrom(bottles_number: number) {
     let currentBottlesOfBeer;
     if (bottles_number === 0) {
@@ -47,10 +19,36 @@ function first_period_from(bottles_number: number) {
     return capitalize(`${currentBottlesOfBeer} on the wall, ${currentBottlesOfBeer}.`);
 }
 
+function actionFor(bottles_number: number) {
+    let action: string;
+    if (bottles_number === 0) {
+        action = `Go to the store and buy some more`;
+    } else {
+        action = `Take one down and pass it around`;
+    }
+    return action;
+}
+
+function remaining_bottles_from(bottles_number: number) {
+    let remaining_bottles;
+    if (bottles_number === 0) {
+        remaining_bottles = `99 bottles`;
+    } else if (bottles_number === 1) {
+        remaining_bottles = `no more bottles`;
+    } else if (bottles_number === 2) {
+        remaining_bottles = `1 bottle`;
+    } else {
+        remaining_bottles = `${bottles_number - 1} bottles`;
+    }
+    return remaining_bottles;
+}
+
+function second_period_from(bottles_number: number) {
+    return `${(actionFor(bottles_number))}, ${(remaining_bottles_from(bottles_number))} of beer on the wall.`;
+}
+
 function ninety_nine_bottles(bottles_number: number): string {
-    let first_period = first_period_from(bottles_number);
-    let second_period = second_period_from(bottles_number);
-    return first_period + '\n' + second_period;
+    return first_period_from(bottles_number) + '\n' + second_period_from(bottles_number);
 }
 
 describe('99 bottles Kata', () => {
