@@ -25,9 +25,15 @@ function currentBottlesOfBeerFrom(bottles_number: number): string  {
     return currentBottlesOfBeer;
 }
 
+function compose<A,B,C>(f: (A) => B, g: (B) => C ) {
+    return (a:A) => g(f(a))
+}
+
 function first_period_from(bottles_number: number): string {
-    let currentBottlesOfBeer = currentBottlesOfBeerFrom(bottles_number);
-    return capitalize(`${currentBottlesOfBeer} on the wall, ${currentBottlesOfBeer}.`);
+    const template: (s: string) => string = (currentBottlesOfBeer: string) =>
+        `${currentBottlesOfBeer} on the wall, ${currentBottlesOfBeer}.`;
+    let firstPeriod = compose(currentBottlesOfBeerFrom, template);
+    return compose(firstPeriod, capitalize)(bottles_number);
 }
 
 function actionFor(bottles_number: number): string  {
