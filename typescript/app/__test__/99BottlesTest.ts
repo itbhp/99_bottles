@@ -31,7 +31,7 @@ function second_period_from(bottles_number: number) {
     return second_period;
 }
 
-function first_period_from(bottles_number: number) {
+function currentBottlesOfBeerFrom(bottles_number: number) {
     let currentBottlesOfBeer;
     if (bottles_number === 0) {
         currentBottlesOfBeer = `no more bottles of beer`;
@@ -40,6 +40,11 @@ function first_period_from(bottles_number: number) {
     } else {
         currentBottlesOfBeer = `${bottles_number} bottles of beer`;
     }
+    return currentBottlesOfBeer;
+}
+
+function first_period_from(bottles_number: number) {
+    let currentBottlesOfBeer = currentBottlesOfBeerFrom(bottles_number);
     return capitalize(`${currentBottlesOfBeer} on the wall, ${currentBottlesOfBeer}.`);
 }
 
