@@ -16,25 +16,38 @@ function remaining_bottles_from(bottles_number: number) {
     return remaining_bottles;
 }
 
-function ninety_nine_bottles(bottles_number: number): string {
-    let first_period;
-    let second_period;
-
+function second_period_from(bottles_number: number) {
     let remaining_bottles = remaining_bottles_from(bottles_number);
-
+    let second_period;
     if (bottles_number === 0) {
-        first_period = `No more bottles of beer on the wall, no more bottles of beer.`;
         second_period = `Go to the store and buy some more, ${remaining_bottles} of beer on the wall.`;
     } else if (bottles_number === 1) {
-        first_period = `1 bottle of beer on the wall, 1 bottle of beer.`;
         second_period = `Take one down and pass it around, ${remaining_bottles} of beer on the wall.`;
     } else if (bottles_number === 2) {
-        first_period = firstPeriod(bottles_number);
         second_period = `Take one down and pass it around, ${remaining_bottles} of beer on the wall.`;
     } else {
-        first_period = firstPeriod(bottles_number);
         second_period = `Take one down and pass it around, ${remaining_bottles} of beer on the wall.`;
     }
+    return second_period;
+}
+
+function first_period_from(bottles_number: number) {
+    let first_period;
+    if (bottles_number === 0) {
+        first_period = `No more bottles of beer on the wall, no more bottles of beer.`;
+    } else if (bottles_number === 1) {
+        first_period = `1 bottle of beer on the wall, 1 bottle of beer.`;
+    } else if (bottles_number === 2) {
+        first_period = firstPeriod(bottles_number);
+    } else {
+        first_period = firstPeriod(bottles_number);
+    }
+    return first_period;
+}
+
+function ninety_nine_bottles(bottles_number: number): string {
+    let first_period = first_period_from(bottles_number);
+    let second_period = second_period_from(bottles_number);
     return first_period + '\n' + second_period;
 }
 
