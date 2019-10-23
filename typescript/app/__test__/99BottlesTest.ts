@@ -1,7 +1,3 @@
-function firstPeriod(bottles_number: number) {
-    return `${bottles_number} bottles of beer on the wall, ${bottles_number} bottles of beer.`;
-}
-
 function remaining_bottles_from(bottles_number: number) {
     let remaining_bottles;
     if (bottles_number === 0) {
@@ -36,11 +32,11 @@ function first_period_from(bottles_number: number) {
     if (bottles_number === 0) {
         first_period = `No more bottles of beer on the wall, no more bottles of beer.`;
     } else if (bottles_number === 1) {
-        first_period = `1 bottle of beer on the wall, 1 bottle of beer.`;
-    } else if (bottles_number === 2) {
-        first_period = firstPeriod(bottles_number);
+        const currentBottlesOfBeer = `${bottles_number} bottle of beer`;
+        first_period = `${currentBottlesOfBeer} on the wall, ${currentBottlesOfBeer}.`;
     } else {
-        first_period = firstPeriod(bottles_number);
+        const currentBottlesOfBeer = `${bottles_number} bottles of beer`;
+        first_period = `${currentBottlesOfBeer} on the wall, ${currentBottlesOfBeer}.`;
     }
     return first_period;
 }
