@@ -2,17 +2,6 @@ function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// Array<A> -> Array<B> -> reduce -> C
-// f: A -> B
-// g: B -> C
-// f(g)
-// f1: A -> B -> C
-// f2: (A, B) -> C
-// const curry<A,B,C>(f: (A, B) -> C) = (a: A) => (b: B) => f(a, b)
-
-
-// [firstPeriod, secondPeriod].map(f -> f(n)).join('\n')
-
 function currentBottlesOfBeerFrom(bottles_number: number): string  {
     let currentBottlesOfBeer;
     if (bottles_number === 0) {
