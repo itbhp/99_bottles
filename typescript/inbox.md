@@ -2,7 +2,7 @@
 
 # single verse
 - [x] 99th verse
-- [ ] 98th verse
+- [x] 98th verse
 - [ ] 3rd verse
 - [ ] 2nd verse
 - [ ] 1st verse
