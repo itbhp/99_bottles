@@ -32,19 +32,15 @@ function second_period_from(bottles_number: number) {
 }
 
 function first_period_from(bottles_number: number) {
-    let first_period;
     let currentBottlesOfBeer;
     if (bottles_number === 0) {
         currentBottlesOfBeer = `no more bottles of beer`;
-        first_period = capitalize(`${currentBottlesOfBeer} on the wall, ${currentBottlesOfBeer}.`);
     } else if (bottles_number === 1) {
         currentBottlesOfBeer = `${bottles_number} bottle of beer`;
-        first_period = capitalize(`${currentBottlesOfBeer} on the wall, ${currentBottlesOfBeer}.`);
     } else {
         currentBottlesOfBeer = `${bottles_number} bottles of beer`;
-        first_period = capitalize(`${currentBottlesOfBeer} on the wall, ${currentBottlesOfBeer}.`);
     }
-    return first_period;
+    return capitalize(`${currentBottlesOfBeer} on the wall, ${currentBottlesOfBeer}.`);
 }
 
 function ninety_nine_bottles(bottles_number: number): string {
