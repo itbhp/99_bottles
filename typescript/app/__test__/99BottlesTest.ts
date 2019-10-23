@@ -2,7 +2,18 @@ function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-function currentBottlesOfBeerFrom(bottles_number: number) {
+// Array<A> -> Array<B> -> reduce -> C
+// f: A -> B
+// g: B -> C
+// f(g)
+// f1: A -> B -> C
+// f2: (A, B) -> C
+// const curry<A,B,C>(f: (A, B) -> C) = (a: A) => (b: B) => f(a, b)
+
+
+// [firstPeriod, secondPeriod].map(f -> f(n)).join('\n')
+
+function currentBottlesOfBeerFrom(bottles_number: number): string  {
     let currentBottlesOfBeer;
     if (bottles_number === 0) {
         currentBottlesOfBeer = `no more bottles of beer`;
@@ -14,12 +25,12 @@ function currentBottlesOfBeerFrom(bottles_number: number) {
     return currentBottlesOfBeer;
 }
 
-function first_period_from(bottles_number: number) {
+function first_period_from(bottles_number: number): string {
     let currentBottlesOfBeer = currentBottlesOfBeerFrom(bottles_number);
     return capitalize(`${currentBottlesOfBeer} on the wall, ${currentBottlesOfBeer}.`);
 }
 
-function actionFor(bottles_number: number) {
+function actionFor(bottles_number: number): string  {
     let action: string;
     if (bottles_number === 0) {
         action = `Go to the store and buy some more`;
@@ -29,7 +40,7 @@ function actionFor(bottles_number: number) {
     return action;
 }
 
-function remaining_bottles_from(bottles_number: number) {
+function remaining_bottles_from(bottles_number: number): string  {
     let remaining_bottles;
     if (bottles_number === 0) {
         remaining_bottles = `99 bottles`;
@@ -43,12 +54,12 @@ function remaining_bottles_from(bottles_number: number) {
     return remaining_bottles;
 }
 
-function second_period_from(bottles_number: number) {
+function second_period_from(bottles_number: number): string  {
     return `${(actionFor(bottles_number))}, ${(remaining_bottles_from(bottles_number))} of beer on the wall.`;
 }
 
-function ninety_nine_bottles(bottles_number: number): string {
-    return first_period_from(bottles_number) + '\n' + second_period_from(bottles_number);
+function ninety_nine_bottles(n: number): string {
+    return [first_period_from, second_period_from].map(f => f(n)).join('\n');
 }
 
 describe('99 bottles Kata', () => {
