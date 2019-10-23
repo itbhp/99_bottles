@@ -1,3 +1,7 @@
+function firstPeriod(bottles_number: number) {
+    return `${bottles_number} bottles of beer on the wall, ${bottles_number} bottles of beer.`;
+}
+
 function ninety_nine_bottles(bottles_number: number): string {
   if (bottles_number === 0)
     return `No more bottles of beer on the wall, no more bottles of beer.
@@ -8,10 +12,10 @@ Go to the store and buy some more, 99 bottles of beer on the wall.`;
 Take one down and pass it around, no more bottles of beer on the wall.`;
 
   if (bottles_number === 2)
-    return `2 bottles of beer on the wall, 2 bottles of beer.
-Take one down and pass it around, 1 bottle of beer on the wall.`;
+    return firstPeriod(bottles_number) + `\n` +
+`Take one down and pass it around, 1 bottle of beer on the wall.`;
 
-  return `${bottles_number} bottles of beer on the wall, ${bottles_number} bottles of beer.` + '\n' +
+  return firstPeriod(bottles_number) + '\n' +
          `Take one down and pass it around, ${bottles_number - 1} bottles of beer on the wall.`;
 }
 
