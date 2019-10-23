@@ -1,3 +1,7 @@
+function capitalize(str: string) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 function remaining_bottles_from(bottles_number: number) {
     let remaining_bottles;
     if (bottles_number === 0) {
@@ -29,14 +33,16 @@ function second_period_from(bottles_number: number) {
 
 function first_period_from(bottles_number: number) {
     let first_period;
+    let currentBottlesOfBeer;
     if (bottles_number === 0) {
-        first_period = `No more bottles of beer on the wall, no more bottles of beer.`;
+        currentBottlesOfBeer = `no more bottles of beer`;
+        first_period = capitalize(`${currentBottlesOfBeer} on the wall, ${currentBottlesOfBeer}.`);
     } else if (bottles_number === 1) {
-        const currentBottlesOfBeer = `${bottles_number} bottle of beer`;
-        first_period = `${currentBottlesOfBeer} on the wall, ${currentBottlesOfBeer}.`;
+        currentBottlesOfBeer = `${bottles_number} bottle of beer`;
+        first_period = capitalize(`${currentBottlesOfBeer} on the wall, ${currentBottlesOfBeer}.`);
     } else {
-        const currentBottlesOfBeer = `${bottles_number} bottles of beer`;
-        first_period = `${currentBottlesOfBeer} on the wall, ${currentBottlesOfBeer}.`;
+        currentBottlesOfBeer = `${bottles_number} bottles of beer`;
+        first_period = capitalize(`${currentBottlesOfBeer} on the wall, ${currentBottlesOfBeer}.`);
     }
     return first_period;
 }
