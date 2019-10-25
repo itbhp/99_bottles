@@ -27,7 +27,9 @@ function currentBottlesOfBeerFrom(n: number): string {
     let onNone = () => `${n} bottles of beer`;
     let onSome = s => s;
     return fold(onNone, onSome)(
-        monoidAnyOnOption.concat(zero_bottles_currently(n), one_bottle_currently(n))
+        [zero_bottles_currently, one_bottle_currently]
+            .map(f => f(n))
+            .reduce(monoidAnyOnOption.concat)
     );
 }
 
