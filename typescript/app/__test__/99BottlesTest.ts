@@ -5,17 +5,23 @@ function capitalize(str: string) {
 function currentBottlesOfBeerFrom(bottles_number: number): string {
     let currentBottlesOfBeer;
     if (bottles_number === 0) {
-        currentBottlesOfBeer = `no more bottles of beer`;
-    } else if (bottles_number === 1) {
-        currentBottlesOfBeer = `${bottles_number} bottle of beer`;
+        return `no more bottles of beer`;
     } else {
+        currentBottlesOfBeer = '';
+    }
+    if (bottles_number === 1) {
+        return  `${bottles_number} bottle of beer`;
+    } else {
+        currentBottlesOfBeer = '';
+    }
+    if (currentBottlesOfBeer === '') {
         currentBottlesOfBeer = `${bottles_number} bottles of beer`;
     }
     return currentBottlesOfBeer;
 }
 
 function compose<A, B, C>(f: (A) => B, g: (B) => C) {
-    return (a: A) => g(f(a))
+    return (a: A) => g(f(a));
 }
 
 function first_period_from(bottles_number: number): string {
