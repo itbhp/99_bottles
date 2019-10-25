@@ -1,23 +1,34 @@
+import {Option, some, none, fold, getFirstMonoid} from 'fp-ts/lib/Option';
+import {Monoid} from 'fp-ts/lib/Monoid';
+
 function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-function currentBottlesOfBeerFrom(bottles_number: number): string {
-    let currentBottlesOfBeer;
+function zero_bottles_currently(bottles_number: number): Option<string> {
     if (bottles_number === 0) {
-        return `no more bottles of beer`;
+        return some(`no more bottles of beer`);
     } else {
-        currentBottlesOfBeer = '';
+        return none;
     }
+}
+
+function one_bottle_currently(bottles_number: number): Option<string> {
     if (bottles_number === 1) {
-        return  `${bottles_number} bottle of beer`;
+        return some(`${bottles_number} bottle of beer`);
     } else {
-        currentBottlesOfBeer = '';
+        return none;
     }
-    if (currentBottlesOfBeer === '') {
-        currentBottlesOfBeer = `${bottles_number} bottles of beer`;
-    }
-    return currentBottlesOfBeer;
+}
+
+const monoidAnyOnOption: Monoid<Option<string>> = getFirstMonoid();
+
+function currentBottlesOfBeerFrom(n: number): string {
+    let onNone = () => `${n} bottles of beer`;
+    let onSome = s => s;
+    return fold(onNone, onSome)(
+        monoidAnyOnOption.concat(zero_bottles_currently(n), one_bottle_currently(n))
+    );
 }
 
 function compose<A, B, C>(f: (A) => B, g: (B) => C) {
