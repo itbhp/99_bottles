@@ -45,13 +45,9 @@ function first_period_from(n: number): string {
 }
 
 function actionFor(bottles_number: number): string {
-    let action: string;
-    if (bottles_number === 0) {
-        action = `Go to the store and buy some more`;
-    } else {
-        action = `Take one down and pass it around`;
-    }
-    return action;
+    let onZeroRemainingBottles = (n: number) => n == 0 ? some(`Go to the store and buy some more`) : none;
+    let edgeCases: Option<string> = onZeroRemainingBottles(bottles_number);
+    return fold(() => `Take one down and pass it around`, (s: string) => s)(edgeCases);
 }
 
 function remaining_bottles_from(n: number): string {
