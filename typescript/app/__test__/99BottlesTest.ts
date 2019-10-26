@@ -11,31 +11,15 @@ function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 
 }
-function zero_bottles_currently(bottles_number: number): Option<string> {
-    if (bottles_number === 0) {
-        return some(`no more bottles of beer`);
-    } else {
-        return none;
-    }
-
-}
-function one_bottle_currently(bottles_number: number): Option<string> {
-    if (bottles_number === 1) {
-        return some('1 bottle of beer');
-    } else {
-        return none;
-    }
-
-}
 
 function currentBottlesOfBeerFrom(n: number): string {
-    let onNone = () => `${n} bottles of beer`;
-    let onSome = s => s;
-    let edgeCases = [zero_bottles_currently, one_bottle_currently]
+    let onZeroBottles = (num: number) => num == 0 ?  some(`no more bottles of beer`) : none;
+    let onOneBottle = (num: number) => num == 1 ?  some(`1 bottle of beer`) : none;
+    let edgeCases = [onZeroBottles, onOneBottle]
         .map(f => f(n))
         .reduce(monoidAnyOnOption.concat);
 
-    return fold(onNone, onSome)(edgeCases);
+    return fold(() => `${n} bottles of beer`, (s:string) => s)(edgeCases);
 }
 
 function first_period_from(n: number): string {
