@@ -9,7 +9,6 @@ function compose<A, B, C>(f: (A) => B, g: (B) => C) {
 }
 function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
-
 }
 
 function currentBottlesOfBeerFrom(n: number): string {
@@ -35,17 +34,15 @@ function actionFor(bottles_number: number): string {
 }
 
 function remaining_bottles_from(n: number): string {
-    let remaining_bottles;
-    if (n === 0) {
-        remaining_bottles = `99 bottles`;
-    } else if (n === 1) {
-        remaining_bottles = `no more bottles`;
-    } else if (n === 2) {
-        remaining_bottles = `1 bottle`;
-    } else {
-        remaining_bottles = `${n - 1} bottles`;
-    }
-    return remaining_bottles;
+    let onZeroBottles = (num: number) => num == 0 ? some(`99 bottles`) : none;
+    let onOneBottle = (num: number) => num == 1 ? some(`no more bottles`) : none;
+    let onTwoBottles = (num: number) => num == 2 ? some(`1 bottle`) : none;
+
+    let edgeCases = [onZeroBottles, onOneBottle, onTwoBottles]
+        .map(f => f(n))
+        .reduce(monoidAnyOnOption.concat);
+
+    return fold(() => `${n - 1} bottles`, (s:string) => s)(edgeCases);
 }
 
 function second_period_from(n: number): string {
