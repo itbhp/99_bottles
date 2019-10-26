@@ -38,10 +38,10 @@ function currentBottlesOfBeerFrom(n: number): string {
     return fold(onNone, onSome)(edgeCases);
 }
 
-function first_period_from(bottles_number: number): string {
+function first_period_from(n: number): string {
     const template: (s: string) => string = (currentBottlesOfBeer: string) =>
         `${currentBottlesOfBeer} on the wall, ${currentBottlesOfBeer}.`;
-    return compose(compose(currentBottlesOfBeerFrom, template), capitalize)(bottles_number);
+    return compose(compose(currentBottlesOfBeerFrom, template), capitalize)(n);
 }
 
 function actionFor(bottles_number: number): string {
@@ -54,22 +54,23 @@ function actionFor(bottles_number: number): string {
     return action;
 }
 
-function remaining_bottles_from(bottles_number: number): string {
+function remaining_bottles_from(n: number): string {
     let remaining_bottles;
-    if (bottles_number === 0) {
+    if (n === 0) {
         remaining_bottles = `99 bottles`;
-    } else if (bottles_number === 1) {
+    } else if (n === 1) {
         remaining_bottles = `no more bottles`;
-    } else if (bottles_number === 2) {
+    } else if (n === 2) {
         remaining_bottles = `1 bottle`;
     } else {
-        remaining_bottles = `${bottles_number - 1} bottles`;
+        remaining_bottles = `${n - 1} bottles`;
     }
     return remaining_bottles;
 }
 
-function second_period_from(bottles_number: number): string {
-    return `${(actionFor(bottles_number))}, ${(remaining_bottles_from(bottles_number))} of beer on the wall.`;
+function second_period_from(n: number): string {
+    let action = actionFor(n);
+    return `${action}, ${remaining_bottles_from(n)} of beer on the wall.`;
 }
 
 function ninety_nine_bottles(n: number): string {
