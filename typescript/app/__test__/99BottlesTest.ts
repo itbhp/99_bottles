@@ -9,8 +9,8 @@ const applyRuleTo = (n:number) => (f: rule) => f(n);
 
 function compose<A, B, C>(f: (a:A) => B, g: (b:B) => C) {
     return (a: A) => g(f(a));
-
 }
+
 function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
