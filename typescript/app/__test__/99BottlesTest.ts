@@ -7,7 +7,7 @@ const monoidAnyOnOption: Monoid<Option<string>> = getFirstMonoid();
 type rule = (n: number) => Option<string>
 const applyRuleTo = (n:number) => (f: rule) => f(n);
 
-function compose<A, B, C>(f: (A) => B, g: (B) => C) {
+function compose<A, B, C>(f: (a:A) => B, g: (b:B) => C) {
     return (a: A) => g(f(a));
 
 }
