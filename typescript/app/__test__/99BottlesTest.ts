@@ -26,8 +26,8 @@ function currentBottlesWhen(n: number): string {
 }
 
 function first_period_from(n: number): string {
-    const template: (s: string) => string = (currentBottlesOfBeer: string) =>
-        `${currentBottlesOfBeer} of beer on the wall, ${currentBottlesOfBeer} of beer.`;
+    const template: (s: string) => string = (currentBottles: string) =>
+        `${currentBottles} of beer on the wall, ${currentBottles} of beer.`;
     return compose(compose(currentBottlesWhen, template), capitalize)(n);
 }
 
