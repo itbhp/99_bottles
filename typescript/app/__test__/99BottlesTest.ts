@@ -2,15 +2,12 @@ import {fold, getMonoid, none, Option, some} from 'fp-ts/lib/Option';
 import {first} from 'fp-ts/lib/Semigroup';
 import {Monoid} from 'fp-ts/lib/Monoid';
 import {foldMap} from "fp-ts/lib/Array";
+import {flow} from "fp-ts/lib/function";
 
 const monoidAnyOnOption: Monoid<Option<string>> = getMonoid(first());
 
 type rule = (n: number) => Option<string>
 const applyRuleTo = (n: number) => (f: rule) => f(n);
-
-function compose<A, B, C>(f: (a: A) => B, g: (b: B) => C) {
-    return (a: A) => g(f(a));
-}
 
 function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -31,9 +28,9 @@ function currentBottlesWhen(n: number): string {
 }
 
 function first_period_from(n: number): string {
-    const template: (s: string) => string = (currentBottles: string) =>
+    const template = (currentBottles: string) =>
         `${currentBottles} of beer on the wall, ${currentBottles} of beer.`;
-    return compose(compose(currentBottlesWhen, template), capitalize)(n);
+    return flow(currentBottlesWhen, template, capitalize)(n);
 }
 
 function actionFor(bottles_number: number): string {
