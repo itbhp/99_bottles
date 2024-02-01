@@ -5,9 +5,9 @@ import {foldMap} from "fp-ts/lib/Array";
 const monoidAnyOnOption: Monoid<Option<string>> = getFirstMonoid();
 
 type rule = (n: number) => Option<string>
-const applyRuleTo = (n:number) => (f: rule) => f(n);
+const applyRuleTo = (n: number) => (f: rule) => f(n);
 
-function compose<A, B, C>(f: (a:A) => B, g: (b:B) => C) {
+function compose<A, B, C>(f: (a: A) => B, g: (b: B) => C) {
     return (a: A) => g(f(a));
 }
 
@@ -15,14 +15,18 @@ function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+function mottoFor(n: number, motto: string) {
+    return (num: number) => num == n ? some(motto) : none;
+}
+
 function currentBottlesWhen(n: number): string {
-    const onZeroBottles = (num: number) => num == 0 ?  some(`no more bottles`) : none;
-    const onOneBottle = (num: number) => num == 1 ?  some(`1 bottle`) : none;
+    const onZeroBottles = mottoFor(0, `no more bottles`);
+    const onOneBottle = mottoFor(1, `1 bottle`);
 
     const rules = [onZeroBottles, onOneBottle];
     const edgeCases = foldMap(monoidAnyOnOption)(applyRuleTo(n))(rules);
 
-    return fold(() => `${n} bottles`, (s:string) => s)(edgeCases);
+    return fold(() => `${n} bottles`, (s: string) => s)(edgeCases);
 }
 
 function first_period_from(n: number): string {
@@ -32,20 +36,20 @@ function first_period_from(n: number): string {
 }
 
 function actionFor(bottles_number: number): string {
-    const onZeroRemainingBottles = (n: number) => n == 0 ? some(`Go to the store and buy some more`) : none;
+    const onZeroRemainingBottles = mottoFor(0, `Go to the store and buy some more`);
     const edgeCases: Option<string> = onZeroRemainingBottles(bottles_number);
     return fold(() => `Take one down and pass it around`, (s: string) => s)(edgeCases);
 }
 
 function remaining_bottles_from(n: number): string {
-    const onZeroBottles = (num: number) => num == 0 ? some(currentBottlesWhen(99)) : none;
-    const onOneBottle = (num: number) => num == 1 ? some(currentBottlesWhen(0)) : none;
-    const onTwoBottles = (num: number) => num == 2 ? some(currentBottlesWhen(1)) : none;
+    const onZeroBottles = mottoFor(0, currentBottlesWhen(99));
+    const onOneBottle = mottoFor(1, currentBottlesWhen(0));
+    const onTwoBottles = mottoFor(2, currentBottlesWhen(1));
 
     const rules = [onZeroBottles, onOneBottle, onTwoBottles];
     const edgeCases = foldMap(monoidAnyOnOption)(applyRuleTo(n))(rules);
 
-    return fold(() => currentBottlesWhen(n-1), (s:string) => s)(edgeCases);
+    return fold(() => currentBottlesWhen(n - 1), (s: string) => s)(edgeCases);
 }
 
 function second_period_from(n: number): string {
