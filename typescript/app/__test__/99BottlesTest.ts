@@ -1,13 +1,9 @@
 import {fold, getMonoid, none, Option, some} from 'fp-ts/lib/Option';
 import {first} from 'fp-ts/lib/Semigroup';
 import {Monoid} from 'fp-ts/lib/Monoid';
-import {foldMap} from "fp-ts/lib/Array";
 import {flow} from "fp-ts/lib/function";
 
 const monoidAnyOnOption: Monoid<Option<string>> = getMonoid(first());
-
-type rule = (n: number) => Option<string>
-const applyRuleTo = (n: number) => (f: rule) => f(n);
 
 function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -22,7 +18,8 @@ function currentBottlesWhen(n: number): string {
     const onOneBottle = mottoFor(1, `1 bottle`);
 
     const rules = [onZeroBottles, onOneBottle];
-    const edgeCases = foldMap(monoidAnyOnOption)(applyRuleTo(n))(rules);
+    const edgeCases = rules.map(rule => rule(n))
+        .reduce(monoidAnyOnOption.concat)
 
     return fold(() => `${n} bottles`, (s: string) => s)(edgeCases);
 }
@@ -45,7 +42,8 @@ function remaining_bottles_from(n: number): string {
     const onTwoBottles = mottoFor(2, currentBottlesWhen(1));
 
     const rules = [onZeroBottles, onOneBottle, onTwoBottles];
-    const edgeCases = foldMap(monoidAnyOnOption)(applyRuleTo(n))(rules);
+    const edgeCases = rules.map(rule => rule(n))
+        .reduce(monoidAnyOnOption.concat)
 
     return fold(() => currentBottlesWhen(n - 1), (s: string) => s)(edgeCases);
 }
