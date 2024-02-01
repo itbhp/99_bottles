@@ -30,12 +30,6 @@ function first_period_from(n: number): string {
     return flow(currentBottlesWhen, template, capitalize)(n);
 }
 
-function actionFor(bottles_number: number): string {
-    const onZeroRemainingBottles = mottoFor(0, `Go to the store and buy some more`);
-    const edgeCases: Option<string> = onZeroRemainingBottles(bottles_number);
-    return fold(() => `Take one down and pass it around`, (s: string) => s)(edgeCases);
-}
-
 function remaining_bottles_from(n: number): string {
     const onZeroBottles = mottoFor(0, currentBottlesWhen(99));
     const onOneBottle = mottoFor(1, currentBottlesWhen(0));
@@ -46,6 +40,12 @@ function remaining_bottles_from(n: number): string {
         .reduce(monoidAnyOnOption.concat)
 
     return fold(() => currentBottlesWhen(n - 1), (s: string) => s)(edgeCases);
+}
+
+function actionFor(bottles_number: number): string {
+    const onZeroRemainingBottles = mottoFor(0, `Go to the store and buy some more`);
+    const edgeCases: Option<string> = onZeroRemainingBottles(bottles_number);
+    return fold(() => `Take one down and pass it around`, (s: string) => s)(edgeCases);
 }
 
 function second_period_from(n: number): string {
