@@ -1,8 +1,9 @@
-import {fold, getFirstMonoid, none, Option, some} from 'fp-ts/lib/Option';
+import {fold, getMonoid, none, Option, some} from 'fp-ts/lib/Option';
+import {first} from 'fp-ts/lib/Semigroup';
 import {Monoid} from 'fp-ts/lib/Monoid';
 import {foldMap} from "fp-ts/lib/Array";
 
-const monoidAnyOnOption: Monoid<Option<string>> = getFirstMonoid();
+const monoidAnyOnOption: Monoid<Option<string>> = getMonoid(first());
 
 type rule = (n: number) => Option<string>
 const applyRuleTo = (n: number) => (f: rule) => f(n);
